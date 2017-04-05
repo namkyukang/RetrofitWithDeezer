@@ -1,6 +1,7 @@
 package com.customview.kang.retrofitwithdeezer.Util;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.customview.kang.retrofitwithdeezer.DeezerApiService;
 import com.customview.kang.retrofitwithdeezer.Domain.API_URL;
@@ -54,8 +55,9 @@ public class RetrofitDeezerUtil {
                     //json = response.body().toString();
                     for(Data data : trackData.getData()){
                         Log.d("Artist","=============artist : " + data.getArtist().getName());
+                        json =json + "Artist : " + data.getArtist().getName() + "\nAlbum : " + data.getAlbum().getTitle() + "\n Title : " +data.getTitle() + "\n";
                     }
-
+                    //txtview.setText(json);
                 }else{
                     Log.d("MainRetrofit",response.message());   //정상적이지 않을경우 message에 오류 내용이 담겨온다.
                 }
@@ -67,6 +69,7 @@ public class RetrofitDeezerUtil {
                 Log.d("MainRetrofit","Failure===========================================");   //정상적이지 않을경우 message에 오류 내용이 담겨온다.
             }
         });
+        Log.d("MainRetrofit","ready to return ");
         return json;
     }
 }
