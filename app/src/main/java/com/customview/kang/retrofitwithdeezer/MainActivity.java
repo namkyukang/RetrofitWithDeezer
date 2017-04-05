@@ -26,14 +26,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("MainActivity","=====================================================0");
         initWidget();
-
-        Log.d("MainActivity","=====================================================1");
         deezerUtil = new RetrofitDeezerUtil();
-        Log.d("MainActivity","=====================================================2");
         deezerUtil.setRetrofit();
-        Log.d("MainActivity","=====================================================3");
         btnSearch.setOnClickListener(listener);
     }
     public void initWidget(){
@@ -45,8 +40,10 @@ public class MainActivity extends AppCompatActivity {
     View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String value = "";
             Log.d("MainActivity","Button On Click==========================================editTrack : " + editTrack.getText().toString());
-            txtResult.setText( deezerUtil.searchTrack(editTrack.getText().toString()) );
+            value = deezerUtil.searchTrack(editTrack.getText().toString());
+            txtResult.setText(value);
         }
     };
 }

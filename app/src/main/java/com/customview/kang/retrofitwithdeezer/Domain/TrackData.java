@@ -9,11 +9,16 @@ import java.util.List;
 public class TrackData {
     private List<Data> data;
 
-    public List<Data> getdata() {
+    public List<Data> getData() {
         return data;
     }
 
-    public void setdata(List<Data> row) {
-        this.data = row;
+    public void setData(List<Data> data) {
+        this.data = data;
     }
+//    @Override
+//    public String toString()
+//    {
+//        return "ClassPojo [data = "+data+"]";
+//    }
 }

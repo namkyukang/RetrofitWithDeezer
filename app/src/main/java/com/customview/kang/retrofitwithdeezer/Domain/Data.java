@@ -6,20 +6,20 @@ package com.customview.kang.retrofitwithdeezer.Domain;
 
 public class Data {
     private int id;
-    private int readable;
+    private boolean readable;
     private String title;
     private String title_short;
     private String title_version;
     private String link;
-    private String duration;
-    private String rank;
+    private int duration;
+    private int rank;
     private boolean explicit_lyrics;
     private String preview;
 
     private artist artist;
     private album album;
 
-    private String track;
+    private String type;
 
     public int getId() {
         return id;
@@ -29,11 +29,11 @@ public class Data {
         this.id = id;
     }
 
-    public int getReadable() {
+    public boolean isReadable() {
         return readable;
     }
 
-    public void setReadable(int readable) {
+    public void setReadable(boolean readable) {
         this.readable = readable;
     }
 
@@ -69,19 +69,19 @@ public class Data {
         this.link = link;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public String getRank() {
+    public int getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(int rank) {
         this.rank = rank;
     }
 
@@ -117,11 +117,11 @@ public class Data {
         this.album = album;
     }
 
-    public String getTrack() {
-        return track;
+    public String getType() {
+        return type;
     }
 
-    public void setTrack(String track) {
-        this.track = track;
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -4,7 +4,9 @@ import android.util.Log;
 
 import com.customview.kang.retrofitwithdeezer.DeezerApiService;
 import com.customview.kang.retrofitwithdeezer.Domain.API_URL;
+import com.customview.kang.retrofitwithdeezer.Domain.Data;
 import com.customview.kang.retrofitwithdeezer.Domain.TrackData;
+import com.customview.kang.retrofitwithdeezer.Domain.artist;
 import com.customview.kang.retrofitwithdeezer.MainActivity;
 
 import retrofit2.Call;
@@ -39,25 +41,30 @@ public class RetrofitDeezerUtil {
     }
 
     public String searchTrack(String value){
-        Log.d("RetroDeezerUnit","searchTrack ===============================================vale : " + value);
         value = "track:\""+value+"\"";
+        Log.d("MainRetroDeezerUnit","searchTrack ===============================================value : " + value);
         Call<TrackData> result = service.getData(value);
 
         result.enqueue(new Callback<TrackData>() {
             @Override
             public void onResponse(Call<TrackData> call, Response<TrackData> response) {
                 if(response.isSuccessful()) {
-                    Log.d("RetrofitDeezer",response.body().toString());
-                    json = response.body().toString();
+                    Log.d("MainRetrofitDeezer",response.body().toString());
+                    TrackData trackData = response.body();
+                    //json = response.body().toString();
+                    for(Data data : trackData.getData()){
+                        Log.d("Artist","=============artist : " + data.getArtist().getName());
+                    }
 
                 }else{
-                    Log.e("Retrofit",response.message());   //정상적이지 않을경우 message에 오류 내용이 담겨온다.
+                    Log.d("MainRetrofit",response.message());   //정상적이지 않을경우 message에 오류 내용이 담겨온다.
                 }
             }
 
             @Override
             public void onFailure(Call<TrackData> call, Throwable t) {
                 //통신 자체가 잘못됐을 경우 이쪽으로 넘어온다.
+                Log.d("MainRetrofit","Failure===========================================");   //정상적이지 않을경우 message에 오류 내용이 담겨온다.
             }
         });
         return json;
