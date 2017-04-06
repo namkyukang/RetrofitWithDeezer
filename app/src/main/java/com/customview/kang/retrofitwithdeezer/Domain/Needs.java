@@ -9,7 +9,7 @@ public class Needs {
     private String title;
     private String album;
     private String image;
-    private String duration;
+    private int duration;
     private String preview;
     private String albumList;
 
@@ -45,11 +45,11 @@ public class Needs {
         this.image = image;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 

@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.customview.kang.retrofitwithdeezer.Domain.Needs;
 
 import java.util.List;
@@ -33,7 +35,10 @@ public class RecyclerViewAdpt extends RecyclerView.Adapter<RecyclerViewAdpt.Hold
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-
+        Glide.with(context).load(datas.get(position).getImage()).into(holder.cover_image);
+        holder.txtTitle.setText(datas.get(position).getTitle());
+        holder.txtArtist.setText(datas.get(position).getArtist());
+        holder.txtAlbum.setText(datas.get(position).getAlbum());
     }
 
     @Override
@@ -41,29 +46,36 @@ public class RecyclerViewAdpt extends RecyclerView.Adapter<RecyclerViewAdpt.Hold
 
     public class Holder extends RecyclerView.ViewHolder {
         ImageView cover_image;
-        ImageButton btnplay,btnMore;
+        ImageButton btnPlay,btnMore;
         TextView txtTitle, txtArtist, txtAlbum;
         CardView cardView;
 
         public Holder(View view) {
             super(view);
             cover_image = (ImageView)view.findViewById(R.id.imageView);
-            btnplay = (ImageButton)view.findViewById(R.id.btnPlay);
+            btnPlay = (ImageButton)view.findViewById(R.id.btnPlay);
             btnMore = (ImageButton)view.findViewById(R.id.btnMore);
             txtTitle = (TextView)view.findViewById(R.id.txtTitle);
             txtArtist= (TextView)view.findViewById(R.id.txtArtist);
             txtAlbum= (TextView)view.findViewById(R.id.txtAlbum);
             cardView = (CardView)view.findViewById(R.id.cardView);
 
-
+            btnPlay.setOnClickListener(listener);
+            btnMore.setOnClickListener(listener);
+            cardView.setOnClickListener(listener);
         }
         private View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btnPlay:
+                        Toast.makeText(context, "Click Play Button", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.btnMore:
+                        Toast.makeText(context, "Click More Button", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.cardView:
+                        Toast.makeText(context, "Click Card view", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }

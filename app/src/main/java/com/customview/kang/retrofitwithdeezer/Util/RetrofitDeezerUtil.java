@@ -6,9 +6,13 @@ import android.widget.TextView;
 import com.customview.kang.retrofitwithdeezer.DeezerApiService;
 import com.customview.kang.retrofitwithdeezer.Domain.API_URL;
 import com.customview.kang.retrofitwithdeezer.Domain.Data;
+import com.customview.kang.retrofitwithdeezer.Domain.Needs;
 import com.customview.kang.retrofitwithdeezer.Domain.TrackData;
 import com.customview.kang.retrofitwithdeezer.Domain.artist;
 import com.customview.kang.retrofitwithdeezer.MainActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,8 +28,6 @@ public class RetrofitDeezerUtil {
 
     Retrofit retrofit;
     DeezerApiService service;
-    String json = "";
-
 
     public void setRetrofit() {
         //레트로 핏을 생성하고
@@ -41,23 +43,29 @@ public class RetrofitDeezerUtil {
 
     }
 
-    public String searchTrack(String value){
+    public List<Needs> searchTrack(String value){
         value = "track:\""+value+"\"";
-        Log.d("MainRetroDeezerUnit","searchTrack ===============================================value : " + value);
         Call<TrackData> result = service.getData(value);
+        final List<Needs> datas = new ArrayList<>();
 
         result.enqueue(new Callback<TrackData>() {
             @Override
             public void onResponse(Call<TrackData> call, Response<TrackData> response) {
                 if(response.isSuccessful()) {
-                    Log.d("MainRetrofitDeezer",response.body().toString());
                     TrackData trackData = response.body();
                     //json = response.body().toString();
                     for(Data data : trackData.getData()){
-                        Log.d("Artist","=============artist : " + data.getArtist().getName());
-                        json =json + "Artist : " + data.getArtist().getName() + "\nAlbum : " + data.getAlbum().getTitle() + "\n Title : " +data.getTitle() + "\n";
+                        Needs needs = new Needs();
+
+                        needs.setArtist(data.getArtist().getName());
+                        needs.setTitle(data.getTitle());
+                        needs.setAlbum(data.getAlbum().getTitle());
+                        needs.setImage(data.getAlbum().getCover());
+                        needs.setDuration(data.getDuration());
+                        needs.setPreview(data.getPreview());
+                        needs.setAlbumList(data.getAlbum().getTracklist());
+                        datas.add(needs);
                     }
-                    //txtview.setText(json);
                 }else{
                     Log.d("MainRetrofit",response.message());   //정상적이지 않을경우 message에 오류 내용이 담겨온다.
                 }
@@ -69,7 +77,6 @@ public class RetrofitDeezerUtil {
                 Log.d("MainRetrofit","Failure===========================================");   //정상적이지 않을경우 message에 오류 내용이 담겨온다.
             }
         });
-        Log.d("MainRetrofit","ready to return ");
-        return json;
+        return datas;
     }
 }
